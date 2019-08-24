@@ -1,28 +1,17 @@
 <template>
     <div id="app">
         <img alt="Vue logo" src="./assets/logo.png" />
-        <HelloWorld msg="Welcome to Your Vue.js App" />
-        {{json}}
+        <ChampionsList/>
     </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-import axios from 'axios'
+import ChampionsList from "./components/ChampionsList.vue";
 
 export default {
     name: "app",
     components: {
-        HelloWorld
-    },
-    data(){
-      return {
-        json:""
-      }
-    },
-    mounted() {
-      axios.get('http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json')
-      .then((response) => this.json = response);
+        ChampionsList
     }
 };
 </script>
