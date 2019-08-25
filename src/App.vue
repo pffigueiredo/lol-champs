@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png" />
+        <img alt="Vue logo" src="https://pplware.sapo.pt/wp-content/uploads/2019/05/League-of-Legends-720x405.jpg" />
         <ChampionsList/>
     </div>
 </template>

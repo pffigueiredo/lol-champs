@@ -1,37 +1,49 @@
 <template>
     <div>
-        <header>
-            <h1>League of Legends Champions</h1>
-        </header>
         <main class="champions-grid">
-            <div class="champion" v-for="champion in championsArr" v-bind:key="champion.id">
-                {{champion.name}}
+            <div v-for="champion in championsJSON" :key="championsJSON[champion]">
+              <Champion :champion="champion" />
             </div>
         </main>
     </div>
 </template>
 
 <script>
-import axios from "axios";
+ import json from '../assets/en_us_TFT.json'
+import Champion from "../components/Champion";
 
 export default {
     name: "ChampionsList",
+    components:{
+        Champion
+    },
     data() {
         return {
-            championsArr: []
+            championsJSON: json.champions,
+            traits: []
         };
     },
+    methods: {
+        getTraits : function() {
+            var self = this;
+             for(var champion in self.championsJSON){
+                self.championsJSON[champion].traits.forEach(t => {
+
+                    if(!self.traits.includes(t)){
+                        self.traits[t] = [self.championsJSON[champion].name];
+                    }else{
+                        self.traits[t].push(self.championsJSON[champion].name);
+                    }
+                        
+                })
+             }
+        }
+    },
     mounted() {
-        axios
-            .get(
-                "http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json"
-            )
-            .then(response => {
-                for (var item in response.data.data) {
-                    this.championsArr.push(response.data.data[item]);
-                }
-            });
+        this.getTraits();
+        this.traits.push("dasda");
     }
+
 };
 </script>
 
@@ -39,7 +51,8 @@ export default {
 <style lang="scss" scoped>
   .champions-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-row-gap: 20px;
   }
 
 </style>
